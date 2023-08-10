@@ -19,8 +19,8 @@ export class UsersResolver {
   }
 
   @Query(() => User, { name: 'user' })
-  findOne(@Args('userId', { type: () => String }) userId: string) {
-    return this.usersService.findOne(userId);
+  findOne(@Args('email', { type: () => String }) email: string) {
+    return this.usersService.findOne(email); // Use email directly as the parameter
   }
 
   @Mutation(() => User)

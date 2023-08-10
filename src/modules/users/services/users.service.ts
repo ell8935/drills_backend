@@ -22,10 +22,10 @@ export class UsersService {
   }
 
   //change type any
-  async findOne(userId: any): Promise<User> {
-    const user = await this.userRepository.findOne(userId);
+  async findOne(email: string): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { email: email } });
     if (!user) {
-      throw new NotFoundException(`User #${userId} not found`);
+      throw new NotFoundException(`User with email ${email} not found`);
     }
     return user;
   }
@@ -53,7 +53,7 @@ export class UsersService {
       lastName: '',
       email: '',
       role: '',
-      exampleField: 0,
+      password: '',
     };
   }
 }
