@@ -28,6 +28,17 @@ export class AuthController {
   signIn(@Body() signInDto: Record<string, any>) {
     return this.authService.signIn(signInDto.email, signInDto.password);
   }
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  @Post('register')
+  signUp(@Body() signInDto: Record<string, any>) {
+    return this.authService.signUp({
+      email: signInDto.email,
+      password: signInDto.password,
+      firstName: signInDto.firstName || '',
+      lastName: signInDto.lastName || '',
+    });
+  }
 
   @UseGuards(AuthGuard)
   @Get('profile')
