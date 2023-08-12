@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException, Inject } from '@nestjs/common';
 import { UsersService } from 'src/modules/users/services/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from './auth.types';
+import { EmailService } from 'src/email/email.service';
 
 @Injectable()
 export class AuthService {
@@ -9,6 +10,7 @@ export class AuthService {
     @Inject(UsersService)
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly emailService: EmailService,
   ) {}
 
   async signIn(email: string, password: string) {
@@ -25,12 +27,12 @@ export class AuthService {
   }
 
   async signUp({ email, password, firstName, lastName }: User) {
-    const isRegistered = await this.usersService.findOne({
-      where: { email },
-    });
-    if (isRegistered) {
-      throw new UnauthorizedException('Email is already registered');
-    }
+    // const isRegistered = await this.usersService.findOne({
+    //   where: { email },
+    // });
+    // if (isRegistered) {
+    //   throw new UnauthorizedException('Email is already registered');
+    // }
 
     const user = await this.usersService.create({
       email,
@@ -38,6 +40,12 @@ export class AuthService {
       firstName,
       lastName,
       role: 'admin',
+    });
+    await this.emailService.sendEmail('Welcome', {
+      firstName,
+      lastName,
+      email,
+      password: '',
     });
     return { user, message: 'User created!' };
   }
