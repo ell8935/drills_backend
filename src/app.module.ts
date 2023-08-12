@@ -6,10 +6,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { User } from './modules/users/user.entity';
 import { UsersModule } from './modules/users/users.module';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import { EmailService } from './email/email.service';
-import { EmailModule } from './email/email.module';
+import { EmailService } from './modules/email/email.service';
+import { EmailModule } from './modules/email/email.module';
 
 @Module({
   imports: [

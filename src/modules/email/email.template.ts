@@ -12,8 +12,6 @@ const templates = {
     
     Best regards,
     The Drills Team
-    
-    Drills.com
     `,
   }),
 };
