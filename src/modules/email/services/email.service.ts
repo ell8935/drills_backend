@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import templates from './email.template';
 import { MailerService } from '@nestjs-modules/mailer';
-import { User } from 'src/modules/auth/auth.types';
+import { User } from 'src/modules/auth/types/auth.types';
+import templates from '../constants/email.template';
 
 @Injectable()
 export class EmailService {

@@ -4,12 +4,14 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
-import { User } from './modules/users/user.entity';
+import { User } from './modules/users/entitys/user.entity';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import { EmailService } from './modules/email/email.service';
 import { EmailModule } from './modules/email/email.module';
+import { ClubModule } from './modules/club/club.module';
+import { EmailService } from './modules/email/services/email.service';
+import { Club } from './modules/club/entitys/club.entity';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { EmailModule } from './modules/email/email.module';
       username: 'postgres',
       password: '89358935',
       database: 'drills',
-      entities: [User],
+      entities: [User, Club],
       synchronize: true, // Automatically sync database schema (dev environment only)
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -34,6 +36,7 @@ import { EmailModule } from './modules/email/email.module';
     UsersModule,
     AuthModule,
     EmailModule,
+    ClubModule,
   ],
   controllers: [AppController],
   providers: [AppService, EmailService],
