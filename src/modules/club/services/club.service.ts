@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
 import { CreateClubProps } from '../types/club.types';
 import { Club } from '../entitys/club.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { UpdateClubInput } from '../dtos/updateClub.input';
 
 @Injectable()
 export class ClubService {
@@ -22,5 +23,22 @@ export class ClubService {
 
   async getClubsBySport(sport: string): Promise<Club[]> {
     return this.clubRepository.find({ where: { sport } });
+  }
+  async findOne(options: FindOneOptions<Club> = {}) {
+    return this.clubRepository.findOne(options);
+  }
+
+  async update(
+    clubId: string,
+    updateClubInput: UpdateClubInput,
+  ): Promise<Club> {
+    const club = await this.clubRepository.preload({
+      clubId: clubId,
+      ...updateClubInput,
+    });
+    if (!club) {
+      throw new NotFoundException(`Club #${clubId} not found`);
+    }
+    return this.clubRepository.save(club);
   }
 }
