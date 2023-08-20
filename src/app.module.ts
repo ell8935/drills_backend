@@ -12,6 +12,8 @@ import { EmailModule } from './modules/email/email.module';
 import { ClubModule } from './modules/club/club.module';
 import { EmailService } from './modules/email/services/email.service';
 import { Club } from './modules/club/entitys/club.entity';
+import { UserClubRole } from './modules/users/entitys/UserClubRole.entity';
+import { UserRole } from './modules/users/entitys/userRole.entity';
 
 @Module({
   imports: [
@@ -25,7 +27,7 @@ import { Club } from './modules/club/entitys/club.entity';
       username: 'postgres',
       password: '89358935',
       database: 'drills',
-      entities: [User, Club],
+      entities: [User, Club, UserClubRole, UserRole],
       synchronize: true, // Automatically sync database schema (dev environment only)
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({

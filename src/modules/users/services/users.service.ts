@@ -4,12 +4,21 @@ import { FindOneOptions, Repository } from 'typeorm';
 import { User } from '../entitys/user.entity';
 import { CreateUserInput } from '../dtos/create-user.input';
 import { UpdateUserInput } from '../dtos/update-user.input';
+import { UserClubRole } from '../entitys/UserClubRole.entity';
+import { UserRole } from '../entitys/userRole.entity';
+import { Club } from 'src/modules/club/entitys/club.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(UserClubRole) // Inject the repository for the junction table
+    private readonly userClubRoleRepository: Repository<UserClubRole>,
+    @InjectRepository(Club) // Inject the repository for the junction table
+    private readonly clubRepository: Repository<Club>,
+    @InjectRepository(UserRole) // Inject the repository for the junction table
+    private readonly userRoleRepository: Repository<UserRole>,
   ) {}
 
   async create(createUserInput: CreateUserInput): Promise<User> {
@@ -25,16 +34,13 @@ export class UsersService {
     return this.userRepository.findOne(options);
   }
 
-  async update(
-    userId: string,
-    updateUserInput: UpdateUserInput,
-  ): Promise<User> {
+  async update(id: string, updateUserInput: UpdateUserInput): Promise<User> {
     const user = await this.userRepository.preload({
-      userId: userId,
+      id: id,
       ...updateUserInput,
     });
     if (!user) {
-      throw new NotFoundException(`User #${userId} not found`);
+      throw new NotFoundException(`User #${id} not found`);
     }
     return this.userRepository.save(user);
   }
@@ -44,13 +50,40 @@ export class UsersService {
       where: { userId },
     });
     await this.userRepository.remove(user);
-    return {
-      userId: userId,
-      firstName: '',
-      lastName: '',
-      email: '',
-      role: '',
-      password: '',
-    };
+    return user;
+  }
+
+  async associateUserWithClubAndRole(
+    userId: string,
+    clubId: string,
+    roleId: string,
+  ): Promise<UserClubRole> {
+    const userClubRole = new UserClubRole();
+    userClubRole.user = await this.userRepository.findOne({
+      where: { userId },
+    });
+    userClubRole.club = await this.clubRepository.findOne({
+      where: { clubId },
+    });
+    userClubRole.role = await this.userRoleRepository.findOne({
+      where: { roleId },
+    });
+
+    return this.userClubRoleRepository.save(userClubRole);
+  }
+
+  async getUserRolesInClub(
+    userId: string,
+    clubId: string,
+  ): Promise<UserRole[]> {
+    const userClubRoles = await this.userClubRoleRepository.find({
+      where: {
+        user: { userId },
+        club: { clubId },
+      },
+      relations: ['role'],
+    });
+
+    return userClubRoles.map((userClubRole) => userClubRole.role);
   }
 }
