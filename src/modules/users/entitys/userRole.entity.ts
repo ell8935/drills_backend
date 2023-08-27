@@ -17,7 +17,7 @@ export class UserRole {
   roleId: string;
   @Column()
   @Field(() => String, { description: 'Role "Manager", "Trainer", "Player")' })
-  rollName: string;
+  roleName: string;
   @Column()
   @Field(() => String, { description: 'description' })
   description: string;

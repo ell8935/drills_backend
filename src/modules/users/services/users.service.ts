@@ -53,10 +53,10 @@ export class UsersService {
     return user;
   }
 
-  async associateUserWithClubAndRole(
+  async associateUserWithClubAndRole1(
     userId: string,
     clubId: string,
-    roleId: string,
+    roleName: string,
   ): Promise<UserClubRole> {
     const userClubRole = new UserClubRole();
     userClubRole.user = await this.userRepository.findOne({
@@ -66,7 +66,7 @@ export class UsersService {
       where: { clubId },
     });
     userClubRole.role = await this.userRoleRepository.findOne({
-      where: { roleId },
+      where: { roleName },
     });
 
     return this.userClubRoleRepository.save(userClubRole);
@@ -85,5 +85,24 @@ export class UsersService {
     });
 
     return userClubRoles.map((userClubRole) => userClubRole.role);
+  }
+
+  async addUserRoleToClub(
+    userId: string,
+    clubId: string,
+    roleId: string,
+  ): Promise<UserClubRole> {
+    const userClubRole = new UserClubRole();
+    userClubRole.user = await this.userRepository.findOne({
+      where: { userId },
+    });
+    userClubRole.club = await this.clubRepository.findOne({
+      where: { clubId },
+    });
+    userClubRole.role = await this.userRoleRepository.findOne({
+      where: { roleId },
+    });
+
+    return this.userClubRoleRepository.save(userClubRole);
   }
 }

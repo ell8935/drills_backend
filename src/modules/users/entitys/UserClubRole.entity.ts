@@ -2,10 +2,13 @@ import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
 import { Club } from 'src/modules/club/entitys/club.entity';
 import { UserRole } from './userRole.entity';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @Entity()
+@ObjectType()
 export class UserClubRole {
   @PrimaryGeneratedColumn('uuid')
+  @Field(() => String, { description: 'id of the club' })
   id: string;
 
   @ManyToOne(() => User, (user) => user.userClubRoles)

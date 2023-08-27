@@ -7,11 +7,12 @@ import { UsersController } from './controllers/users.controller';
 import { UserRole } from './entitys/userRole.entity';
 import { UserClubRole } from './entitys/UserClubRole.entity';
 import { Club } from '../club/entitys/club.entity';
+import { UserRoleClubResolver } from './resolvers/user-role-club/user-role-club.resolver';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, UserRole, UserClubRole, Club])],
-  providers: [UsersService, UsersResolver, UserClubRole],
-  exports: [UsersService, UserClubRole],
+  providers: [UsersService, UsersResolver, UserClubRole, UserRoleClubResolver],
+  exports: [UsersService, UserClubRole, UserRoleClubResolver],
   controllers: [UsersController],
 })
 export class UsersModule {}

@@ -5,6 +5,9 @@ import { User } from '../entitys/user.entity';
 import { UpdateUserInput } from '../dtos/update-user.input';
 import { UserRole } from '../entitys/userRole.entity';
 
+// import { UserClubRole } from '../entitys/UserClubRole.entity';
+// import { AddUserRoleToClubInput } from '../dtos/add-user-role-to-club.input';
+
 @Resolver(() => User)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
@@ -25,27 +28,9 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.usersService.update(updateUserInput.id, updateUserInput);
-  }
-
-  @Mutation(() => User)
   removeUser(@Args('userId', { type: () => String }) userId: string) {
     return this.usersService.remove(userId);
   }
-
-  // @Mutation(() => UserClubRole)
-  // associateUserWithClubAndRole(
-  //   @Args('userId', { type: () => String }) userId: string,
-  //   @Args('clubId', { type: () => String }) clubId: string,
-  //   @Args('roleId', { type: () => String }) roleId: string,
-  // ) {
-  //   return this.usersService.associateUserWithClubAndRole(
-  //     userId,
-  //     clubId,
-  //     roleId,
-  //   );
-  // }
 
   @Query(() => [UserRole], { name: 'userRolesInClub' })
   getUserRolesInClub(
@@ -53,5 +38,10 @@ export class UsersResolver {
     @Args('clubId', { type: () => String }) clubId: string,
   ) {
     return this.usersService.getUserRolesInClub(userId, clubId);
+  }
+
+  @Mutation(() => User)
+  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
+    return this.usersService.update(updateUserInput.id, updateUserInput);
   }
 }

@@ -12,8 +12,8 @@ import { EmailModule } from './modules/email/email.module';
 import { ClubModule } from './modules/club/club.module';
 import { EmailService } from './modules/email/services/email.service';
 import { Club } from './modules/club/entitys/club.entity';
-import { UserClubRole } from './modules/users/entitys/UserClubRole.entity';
 import { UserRole } from './modules/users/entitys/userRole.entity';
+import { UserClubRole } from './modules/users/entitys/UserClubRole.entity';
 
 @Module({
   imports: [
@@ -29,6 +29,7 @@ import { UserRole } from './modules/users/entitys/userRole.entity';
       database: 'drills',
       entities: [User, Club, UserClubRole, UserRole],
       synchronize: true, // Automatically sync database schema (dev environment only)
+      autoLoadEntities: true,
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       autoSchemaFile: true,
