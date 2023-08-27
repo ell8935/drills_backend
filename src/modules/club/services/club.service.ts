@@ -3,7 +3,7 @@ import { Club } from '../entitys/club.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { UpdateClubInput } from '../dtos/updateClub.input';
+import { UpdateClub } from '../dtos/updateClub.input';
 
 @Injectable()
 export class ClubService {
@@ -28,10 +28,7 @@ export class ClubService {
     return this.clubRepository.findOne(options);
   }
 
-  async update(
-    clubId: string,
-    updateClubInput: UpdateClubInput,
-  ): Promise<Club> {
+  async update(clubId: string, updateClubInput: UpdateClub): Promise<Club> {
     const club = await this.clubRepository.preload({
       clubId: clubId,
       ...updateClubInput,

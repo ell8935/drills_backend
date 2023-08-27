@@ -1,45 +1,48 @@
-// src/clubs/dto/club.dto.ts
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  UpdateDateColumn,
+} from 'typeorm';
 
-import { ObjectType, Field } from '@nestjs/graphql';
-
-@ObjectType()
+@Entity()
 export class ClubDto {
-  @Field(() => String, { description: 'id of the club' })
+  @PrimaryGeneratedColumn('uuid')
   clubId: string;
 
-  @Field(() => String, { description: 'name of the club' })
+  @Column()
   clubName: string;
 
-  @Field(() => String, { description: 'sport type' })
+  @Column()
   sport: string;
 
-  @Field(() => String, { description: 'league type' })
+  @Column()
   league: string;
 
-  @Field(() => String, { description: 'city' })
+  @Column()
   city: string;
 
-  @Field(() => String, { description: 'country' })
+  @Column()
   country: string;
 
-  @Field(() => String, { description: 'logo' })
+  @Column()
   logo: string;
 
-  @Field(() => String, { description: 'description' })
+  @Column()
   description: string;
 
-  @Field(() => Date, { description: 'contactInformation' })
+  @Column({ type: 'timestamp' })
   foundedAt: Date;
 
-  @Field(() => String, { description: 'description' })
+  @Column()
   website: string;
 
-  @Field(() => String, { description: 'email' })
+  @Column()
   email: string;
 
-  @Field(() => String, { description: 'phone Number' })
+  @Column()
   phoneNumber: string;
 
-  // @OneToMany(() => User, (user) => user.club)
-  // members: User[];
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date;
 }

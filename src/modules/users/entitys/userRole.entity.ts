@@ -1,4 +1,3 @@
-import { ObjectType, Field } from '@nestjs/graphql';
 import {
   Column,
   CreateDateColumn,
@@ -10,16 +9,12 @@ import {
 import { UserClubRole } from './UserClubRole.entity';
 
 @Entity()
-@ObjectType()
 export class UserRole {
   @PrimaryGeneratedColumn('uuid')
-  @Field(() => String, { description: 'id of the role' })
   roleId: string;
   @Column()
-  @Field(() => String, { description: 'Role "Manager", "Trainer", "Player")' })
   roleName: string;
   @Column()
-  @Field(() => String, { description: 'description' })
   description: string;
   @CreateDateColumn()
   createdAt: Date;

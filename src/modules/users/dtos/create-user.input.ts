@@ -1,15 +1,19 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { Entity, Column } from 'typeorm';
 
-@InputType()
+@Entity()
 export class CreateUserInput {
-  @Field(() => String, { description: 'email of the user' })
+  @Column()
   email: string;
-  @Field(() => String, { description: 'password of the user' })
+
+  @Column()
   password: string;
-  @Field(() => String, { description: 'first name of the user' })
+
+  @Column()
   firstName: string;
-  @Field(() => String, { description: 'last name of the user' })
+
+  @Column()
   lastName: string;
-  @Field(() => String, { description: 'role of the user' })
+
+  @Column()
   role: string;
 }

@@ -1,13 +1,13 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Entity, Column } from 'typeorm';
 
-@InputType()
+@Entity()
 export class AddUserRoleToClubInput {
-  @Field(() => String)
+  @Column()
   userId: string;
 
-  @Field(() => String)
+  @Column()
   clubId: string;
 
-  @Field(() => String)
+  @Column()
   roleId: string;
 }

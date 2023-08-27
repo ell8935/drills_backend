@@ -1,8 +1,8 @@
+import { Entity, Column } from 'typeorm';
 import { CreateUserInput } from './create-user.input';
-import { InputType, Field, PartialType } from '@nestjs/graphql';
 
-@InputType()
-export class UpdateUserInput extends PartialType(CreateUserInput) {
-  @Field(() => String)
+@Entity()
+export class UpdateUserInput extends CreateUserInput {
+  @Column()
   id: string;
 }

@@ -2,8 +2,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { User } from './modules/users/entitys/user.entity';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
@@ -31,11 +29,7 @@ import { UserClubRole } from './modules/users/entitys/UserClubRole.entity';
       synchronize: true, // Automatically sync database schema (dev environment only)
       autoLoadEntities: true,
     }),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      autoSchemaFile: true,
-      driver: ApolloDriver,
-      playground: true,
-    }),
+
     UsersModule,
     AuthModule,
     EmailModule,

@@ -1,8 +1,8 @@
-import { InputType, Field, PartialType } from '@nestjs/graphql';
-import { CreateClubInput } from './createClub.input';
+import { Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Club } from '../entitys/club.entity';
 
-@InputType()
-export class UpdateClubInput extends PartialType(CreateClubInput) {
-  @Field(() => String)
+@Entity()
+export class UpdateClub extends Club {
+  @PrimaryGeneratedColumn('uuid')
   clubId: string;
 }

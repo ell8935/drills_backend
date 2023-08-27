@@ -1,37 +1,32 @@
-// src/users/dto/user.dto.ts
-
-import { ObjectType, Field } from '@nestjs/graphql';
+import { Entity, Column, ManyToOne } from 'typeorm';
 import { ClubDto } from 'src/modules/club/dtos/clubDto';
 
-@ObjectType()
+@Entity()
 export class UserDto {
-  @Field(() => String, { description: 'id of the user' })
+  @Column()
   userId: string;
 
-  @Field(() => String, { description: 'full name of the user' })
+  @Column()
   fullName: string;
 
-  @Field(() => String, { description: 'email of the user' })
+  @Column()
   email: string;
 
-  @Field(() => String, { description: 'password of the user' })
+  @Column()
   password: string;
 
-  @Field(() => String, { description: 'country of the user' })
+  @Column()
   country: string;
 
-  @Field(() => String, { description: 'city of the user' })
+  @Column()
   city: string;
 
-  @Field(() => Date, { description: 'date of birth of the user' })
+  @Column()
   dateOfBirth: Date;
 
-  @Field(() => String, { description: 'description' })
+  @Column()
   description: string;
 
-  @Field(() => ClubDto, {
-    nullable: true,
-    description: 'Club to which the user belongs',
-  })
+  @ManyToOne(() => ClubDto, { nullable: true })
   club?: ClubDto;
 }
