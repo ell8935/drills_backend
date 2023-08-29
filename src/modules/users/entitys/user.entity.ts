@@ -18,17 +18,17 @@ export class User {
   email: string;
   @Column()
   password: string;
-  @Column()
+  @Column({ nullable: true })
   country: string;
-  @Column()
+  @Column({ nullable: true })
   city: string;
-  @Column()
+  @Column({ nullable: true })
   dateOfBirth: Date;
   @CreateDateColumn()
   createdAt: Date;
   @UpdateDateColumn()
   updatedAt: Date;
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @OneToMany(() => UserClubRole, (userClubRole) => userClubRole.user)

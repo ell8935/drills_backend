@@ -5,8 +5,8 @@ import { User } from '../entitys/user.entity';
 import { CreateUserInput } from '../dtos/create-user.input';
 import { UpdateUserInput } from '../dtos/update-user.input';
 import { UserClubRole } from '../entitys/UserClubRole.entity';
-import { UserRole } from '../entitys/userRole.entity';
 import { Club } from 'src/modules/club/entitys/club.entity';
+import { RolesIds } from '../types/userTypes';
 
 @Injectable()
 export class UsersService {
@@ -17,8 +17,6 @@ export class UsersService {
     private readonly userClubRoleRepository: Repository<UserClubRole>,
     @InjectRepository(Club) // Inject the repository for the junction table
     private readonly clubRepository: Repository<Club>,
-    @InjectRepository(UserRole) // Inject the repository for the junction table
-    private readonly userRoleRepository: Repository<UserRole>,
   ) {}
 
   async create(createUserInput: CreateUserInput): Promise<User> {
@@ -28,6 +26,14 @@ export class UsersService {
 
   async findAll(): Promise<Array<User>> {
     return await this.userRepository.find();
+  }
+  async findAllUserClubRole(): Promise<Array<UserClubRole>> {
+    const data = await this.userClubRoleRepository.find({
+      relations: ['user', 'club'], // Specify the relations you want to load
+    });
+    console.log(data);
+
+    return data;
   }
 
   async findOne(options: FindOneOptions<User> = {}) {
@@ -53,10 +59,10 @@ export class UsersService {
     return user;
   }
 
-  async associateUserWithClubAndRole1(
+  async associateUserWithClubAndRole(
     userId: string,
     clubId: string,
-    roleName: string,
+    roleId: RolesIds,
   ): Promise<UserClubRole> {
     const userClubRole = new UserClubRole();
     userClubRole.user = await this.userRepository.findOne({
@@ -65,43 +71,8 @@ export class UsersService {
     userClubRole.club = await this.clubRepository.findOne({
       where: { clubId },
     });
-    userClubRole.role = await this.userRoleRepository.findOne({
-      where: { roleName },
-    });
 
-    return this.userClubRoleRepository.save(userClubRole);
-  }
-
-  async getUserRolesInClub(
-    userId: string,
-    clubId: string,
-  ): Promise<UserRole[]> {
-    const userClubRoles = await this.userClubRoleRepository.find({
-      where: {
-        user: { userId },
-        club: { clubId },
-      },
-      relations: ['role'],
-    });
-
-    return userClubRoles.map((userClubRole) => userClubRole.role);
-  }
-
-  async addUserRoleToClub(
-    userId: string,
-    clubId: string,
-    roleId: string,
-  ): Promise<UserClubRole> {
-    const userClubRole = new UserClubRole();
-    userClubRole.user = await this.userRepository.findOne({
-      where: { userId },
-    });
-    userClubRole.club = await this.clubRepository.findOne({
-      where: { clubId },
-    });
-    userClubRole.role = await this.userRoleRepository.findOne({
-      where: { roleId },
-    });
+    userClubRole.roleId = roleId;
 
     return this.userClubRoleRepository.save(userClubRole);
   }

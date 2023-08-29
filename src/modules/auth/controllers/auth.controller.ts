@@ -27,8 +27,7 @@ export class AuthController {
     return this.authService.signUp({
       email: signInDto.email,
       password: signInDto.password,
-      firstName: signInDto.firstName || '',
-      lastName: signInDto.lastName || '',
+      fullName: signInDto.fullName,
     });
   }
 

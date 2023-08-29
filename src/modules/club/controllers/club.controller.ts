@@ -7,6 +7,10 @@ import { Club } from '../entitys/club.entity';
 export class ClubController {
   constructor(private clubService: ClubService) {}
 
+  @Post('update')
+  updateClub(@Body() form: Club) {
+    return this.clubService.update(form);
+  }
   @Post('create')
   createClub(@Body() form: CreateClubProps) {
     return this.clubService.createClub(form);
@@ -17,8 +21,8 @@ export class ClubController {
     return this.clubService.getClubs();
   }
 
-  @Get(':sport')
-  getClubsBySport(@Param('sport') sport: any): Promise<Club[]> {
-    return this.clubService.getClubsBySport(sport);
+  @Get(':id')
+  getClub(@Param('id') id: string): Promise<Club> {
+    return this.clubService.findOne({ where: { clubId: id } });
   }
 }

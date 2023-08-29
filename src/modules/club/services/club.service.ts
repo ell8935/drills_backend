@@ -3,7 +3,6 @@ import { Club } from '../entitys/club.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { UpdateClub } from '../dtos/updateClub.input';
 
 @Injectable()
 export class ClubService {
@@ -28,13 +27,13 @@ export class ClubService {
     return this.clubRepository.findOne(options);
   }
 
-  async update(clubId: string, updateClubInput: UpdateClub): Promise<Club> {
+  async update(form: Club): Promise<Club> {
     const club = await this.clubRepository.preload({
-      clubId: clubId,
-      ...updateClubInput,
+      clubId: form.clubId,
+      ...form,
     });
     if (!club) {
-      throw new NotFoundException(`Club #${clubId} not found`);
+      throw new NotFoundException(`Club #${form.clubId} not found`);
     }
     return this.clubRepository.save(club);
   }

@@ -9,11 +9,5 @@ export class CreateUserInput {
   password: string;
 
   @Column()
-  firstName: string;
-
-  @Column()
-  lastName: string;
-
-  @Column()
-  role: string;
+  fullName: string;
 }

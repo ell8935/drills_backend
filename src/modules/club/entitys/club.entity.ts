@@ -27,8 +27,8 @@ export class Club {
   @Column()
   description: string;
 
-  @Column({ type: 'timestamp' })
-  foundedAt: Date;
+  @Column()
+  foundedAt: string;
 
   @Column()
   website: string;

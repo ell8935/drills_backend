@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException, Inject } from '@nestjs/common';
 import { UsersService } from 'src/modules/users/services/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../types/auth.types';
 import { EmailService } from 'src/modules/email/services/email.service';
+import { CreateUserInput } from 'src/modules/users/dtos/create-user.input';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +26,7 @@ export class AuthService {
     };
   }
 
-  async signUp({ email, password, firstName, lastName }: User) {
+  async signUp({ email, password, fullName }: CreateUserInput) {
     const isRegistered = await this.usersService.findOne({
       where: { email },
     });
@@ -37,15 +37,12 @@ export class AuthService {
     const user = await this.usersService.create({
       email,
       password,
-      firstName,
-      lastName,
-      role: 'admin',
+      fullName,
     });
     await this.emailService.sendEmail('Welcome', {
       email,
       password: '',
-      firstName,
-      lastName,
+      fullName,
     });
     return { user, message: 'User created successfully!' };
   }

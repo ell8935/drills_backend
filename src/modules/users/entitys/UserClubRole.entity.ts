@@ -1,7 +1,7 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
 import { Club } from 'src/modules/club/entitys/club.entity';
-import { UserRole } from './userRole.entity';
+import { RolesIds } from '../types/userTypes';
 
 @Entity()
 export class UserClubRole {
@@ -14,6 +14,9 @@ export class UserClubRole {
   @ManyToOne(() => Club, (club) => club.userClubRoles)
   club: Club;
 
-  @ManyToOne(() => UserRole, (role) => role.userClubRoles)
-  role: UserRole;
+  @Column({ type: 'integer' })
+  roleId: RolesIds;
+
+  @Column({ nullable: true })
+  description: string;
 }
