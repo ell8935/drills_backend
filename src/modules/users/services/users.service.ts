@@ -6,7 +6,7 @@ import { CreateUserInput } from '../dtos/create-user.input';
 import { UpdateUserInput } from '../dtos/update-user.input';
 import { UserClubRole } from '../entitys/UserClubRole.entity';
 import { Club } from 'src/modules/club/entitys/club.entity';
-import { RolesIds } from '../types/userTypes';
+import { RolesNames } from '../types/userTypes';
 
 @Injectable()
 export class UsersService {
@@ -62,7 +62,7 @@ export class UsersService {
   async associateUserWithClubAndRole(
     userId: string,
     clubId: string,
-    roleId: RolesIds,
+    roleName: RolesNames,
   ): Promise<UserClubRole> {
     const userClubRole = new UserClubRole();
     userClubRole.user = await this.userRepository.findOne({
@@ -72,7 +72,7 @@ export class UsersService {
       where: { clubId },
     });
 
-    userClubRole.roleId = roleId;
+    userClubRole.roleName = roleName;
 
     return this.userClubRoleRepository.save(userClubRole);
   }

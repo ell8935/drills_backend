@@ -1,6 +1,6 @@
+import { RolesNames } from './../types/userTypes';
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { UsersService } from '../services/users.service'; // Make sure this import is correct
-import { RolesIds } from '../types/userTypes';
 
 @Controller('users')
 export class UsersController {
@@ -17,14 +17,14 @@ export class UsersController {
 
   @Post('associate')
   associateUserWithClubAndRole(
-    @Body() body: { userId: string; clubId: string; roleId: RolesIds },
+    @Body() body: { userId: string; clubId: string; roleName: RolesNames },
   ) {
-    const { userId, clubId, roleId } = body;
+    const { userId, clubId, roleName } = body;
 
     return this.usersService.associateUserWithClubAndRole(
       userId,
       clubId,
-      roleId,
+      roleName,
     );
   }
 }
