@@ -7,6 +7,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { UserClubRole } from './UserClubRole.entity';
+import { ClubJoinRequest } from 'src/modules/club/entitys/clubJoinRequest';
+import { StatusOptions } from '../types/userTypes';
 
 @Entity()
 export class User {
@@ -30,7 +32,16 @@ export class User {
   updatedAt: Date;
   @Column({ nullable: true })
   description: string;
+  @Column({ nullable: true })
+  status: StatusOptions;
 
   @OneToMany(() => UserClubRole, (userClubRole) => userClubRole.user)
   userClubRoles: UserClubRole[];
+
+  @OneToMany(() => ClubJoinRequest, (joinRequest) => joinRequest.user)
+  clubJoinRequests: ClubJoinRequest[];
+
+  constructor(data: Partial<User> = {}) {
+    Object.assign(this, data);
+  }
 }

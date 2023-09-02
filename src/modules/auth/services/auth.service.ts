@@ -3,6 +3,8 @@ import { UsersService } from 'src/modules/users/services/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { EmailService } from 'src/modules/email/services/email.service';
 import { CreateUserInput } from 'src/modules/users/dtos/create-user.input';
+import { Omit } from 'src/globalTypes';
+import { User } from 'src/modules/users/entitys/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -20,9 +22,10 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException();
     }
-    const payload = { username: user.email, sub: user.password };
+    const userWithoutPassword: Omit<User, 'password'> = { ...user };
+
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: await this.jwtService.signAsync(userWithoutPassword),
     };
   }
 

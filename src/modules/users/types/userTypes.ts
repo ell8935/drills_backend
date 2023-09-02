@@ -6,3 +6,5 @@ export interface UserRole {
   roleName: RolesNames;
   description: string;
 }
+
+export type StatusOptions = 'Placeholder' | 'Active';

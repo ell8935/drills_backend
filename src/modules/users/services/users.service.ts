@@ -76,4 +76,31 @@ export class UsersService {
 
     return this.userClubRoleRepository.save(userClubRole);
   }
+  async createPlaceholder(
+    userId: string,
+    clubId: string,
+    roleName: RolesNames,
+    fullName: string,
+  ): Promise<UserClubRole> {
+    const userClubRole = new UserClubRole();
+
+    //need to make email and password more secure
+    const partialPlaceholderUser = new User({
+      fullName,
+      email: 'placeholder@haha.com',
+      password: 'password',
+    });
+    const placeholderUser = await this.create(partialPlaceholderUser);
+    userClubRole.user = placeholderUser;
+    userClubRole.user = await this.userRepository.findOne({
+      where: { userId },
+    });
+    userClubRole.club = await this.clubRepository.findOne({
+      where: { clubId },
+    });
+
+    userClubRole.roleName = roleName;
+
+    return this.userClubRoleRepository.save(userClubRole);
+  }
 }
