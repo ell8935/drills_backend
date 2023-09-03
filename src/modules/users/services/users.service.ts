@@ -31,8 +31,6 @@ export class UsersService {
     const data = await this.userClubRoleRepository.find({
       relations: ['user', 'club'], // Specify the relations you want to load
     });
-    console.log(data);
-
     return data;
   }
 
@@ -91,10 +89,8 @@ export class UsersService {
       password: 'password',
     });
     const placeholderUser = await this.create(partialPlaceholderUser);
+
     userClubRole.user = placeholderUser;
-    userClubRole.user = await this.userRepository.findOne({
-      where: { userId },
-    });
     userClubRole.club = await this.clubRepository.findOne({
       where: { clubId },
     });

@@ -4,6 +4,7 @@ import { ClubService } from '../services/club.service';
 import { Club } from '../entitys/club.entity';
 import { UsersService } from 'src/modules/users/services/users.service';
 import { RolesNames } from 'src/modules/users/types/userTypes';
+import { UserClubRole } from 'src/modules/users/entitys/UserClubRole.entity';
 
 @Controller('club')
 export class ClubController {
@@ -16,10 +17,12 @@ export class ClubController {
   updateClub(@Body() form: Club) {
     return this.clubService.update(form);
   }
+
   @Post('create')
   createClub(@Body() form: CreateClubProps) {
     return this.clubService.createClub(form);
   }
+
   @Post('requestToJoinClub')
   requestToJoinClub(@Body() form: RequestToJoinClubProps) {
     return this.clubService.requestToJoinClub(form);
@@ -32,7 +35,15 @@ export class ClubController {
 
   @Get(':id')
   getClub(@Param('id') id: string): Promise<Club> {
-    return this.clubService.findOne({ where: { clubId: id } });
+    return this.clubService.findOneClub({ where: { clubId: id } });
+  }
+
+  @Post('removeEntity')
+  removeUserClubRole(@Body() body: { id: string }): Promise<UserClubRole> {
+    const { id } = body;
+
+    console.log(id);
+    return this.clubService.removeUserClubRole(id);
   }
 
   @Post('associate')

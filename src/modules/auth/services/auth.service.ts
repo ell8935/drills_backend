@@ -57,8 +57,6 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Shalom');
     }
-    console.log(user);
-
     return { message: 'Email is already registerd', statusCode: 409 };
   }
 }

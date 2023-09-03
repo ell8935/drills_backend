@@ -10,7 +10,13 @@ import { ClubJoinRequest } from './entitys/clubJoinRequest';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Club, UserClubRole, User, ClubJoinRequest]),
+    TypeOrmModule.forFeature([
+      Club,
+      UserClubRole,
+      User,
+      ClubJoinRequest,
+      UserClubRole,
+    ]),
   ],
   controllers: [ClubController],
   providers: [ClubService, UsersService, ClubJoinRequest],

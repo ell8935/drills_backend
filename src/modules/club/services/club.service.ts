@@ -5,6 +5,7 @@ import { FindOneOptions, Repository } from 'typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from 'src/modules/users/entitys/user.entity';
 import { ClubJoinRequest } from '../entitys/clubJoinRequest';
+import { UserClubRole } from 'src/modules/users/entitys/UserClubRole.entity';
 
 @Injectable()
 export class ClubService {
@@ -15,6 +16,8 @@ export class ClubService {
     private readonly clubRepository: Repository<Club>,
     @InjectRepository(ClubJoinRequest)
     private readonly clubJoinRequestRepository: Repository<ClubJoinRequest>,
+    @InjectRepository(UserClubRole)
+    private readonly userClubRoleRepository: Repository<UserClubRole>,
   ) {}
 
   async createClub(form: CreateClubProps) {
@@ -36,8 +39,11 @@ export class ClubService {
     return await this.clubJoinRequestRepository.save(joinRequest);
   }
 
-  async findOne(options: FindOneOptions<Club> = {}) {
+  async findOneClub(options: FindOneOptions<Club> = {}) {
     return this.clubRepository.findOne(options);
+  }
+  async findOneUserClubRole(options: FindOneOptions<UserClubRole> = {}) {
+    return this.userClubRoleRepository.findOne(options);
   }
 
   async getClubs(): Promise<Array<Club>> {
@@ -57,5 +63,15 @@ export class ClubService {
       throw new NotFoundException(`Club #${form.clubId} not found`);
     }
     return this.clubRepository.save(club);
+  }
+
+  async removeUserClubRole(id: string) {
+    const user = await this.findOneUserClubRole({
+      where: { id },
+    });
+    await this.userClubRoleRepository.remove(user);
+    console.log(user);
+
+    return user;
   }
 }
