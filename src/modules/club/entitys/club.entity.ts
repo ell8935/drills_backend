@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { UserClubRole } from 'src/modules/users/entitys/UserClubRole.entity';
 import { ClubJoinRequest } from './clubJoinRequest';
+import { Team } from 'src/modules/teams/entitys/team.entity';
 
 @Entity()
 export class Club {
@@ -45,4 +46,7 @@ export class Club {
 
   @OneToMany(() => ClubJoinRequest, (joinRequest) => joinRequest.club)
   joinRequests: ClubJoinRequest[];
+
+  @OneToMany(() => Team, (team) => team.club)
+  teams: Team[]; // Reference to teams within the club
 }

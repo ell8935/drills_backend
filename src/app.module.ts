@@ -12,6 +12,7 @@ import { EmailService } from './modules/email/services/email.service';
 import { Club } from './modules/club/entitys/club.entity';
 import { UserClubRole } from './modules/users/entitys/UserClubRole.entity';
 import { ClubJoinRequest } from './modules/club/entitys/clubJoinRequest';
+import { Team } from './modules/teams/entitys/team.entity';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { ClubJoinRequest } from './modules/club/entitys/clubJoinRequest';
       username: 'postgres',
       password: '89358935',
       database: 'drills',
-      entities: [User, Club, UserClubRole, ClubJoinRequest],
+      entities: [User, Club, UserClubRole, ClubJoinRequest, Team],
       synchronize: true, // Automatically sync database schema (dev environment only)
       autoLoadEntities: true,
     }),

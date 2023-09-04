@@ -70,7 +70,6 @@ export class ClubService {
       where: { id },
     });
     await this.userClubRoleRepository.remove(user);
-    console.log(user);
 
     return user;
   }
