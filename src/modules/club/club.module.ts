@@ -6,7 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserClubRole } from '../users/entitys/UserClubRole.entity';
 import { UsersService } from '../users/services/users.service';
 import { User } from '../users/entitys/user.entity';
-import { ClubJoinRequest } from './entitys/clubJoinRequest';
+import { Team } from '../teams/entitys/team.entity';
+import { ClubJoinRequest } from './entitys/clubJoinRequest.entity';
 
 @Module({
   imports: [
@@ -16,10 +17,11 @@ import { ClubJoinRequest } from './entitys/clubJoinRequest';
       User,
       ClubJoinRequest,
       UserClubRole,
+      Team,
     ]),
   ],
   controllers: [ClubController],
-  providers: [ClubService, UsersService, ClubJoinRequest],
+  providers: [ClubService, UsersService, ClubJoinRequest, Team],
   exports: [ClubJoinRequest],
 })
 export class ClubModule {}

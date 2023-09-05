@@ -7,6 +7,7 @@ import { UpdateUserInput } from '../dtos/update-user.input';
 import { UserClubRole } from '../entitys/UserClubRole.entity';
 import { Club } from 'src/modules/club/entitys/club.entity';
 import { RolesNames } from '../types/userTypes';
+import { Team } from 'src/modules/teams/entitys/team.entity';
 
 @Injectable()
 export class UsersService {
@@ -17,6 +18,8 @@ export class UsersService {
     private readonly userClubRoleRepository: Repository<UserClubRole>,
     @InjectRepository(Club) // Inject the repository for the junction table
     private readonly clubRepository: Repository<Club>,
+    @InjectRepository(Team) // Inject the repository for the junction table
+    private readonly teamRepository: Repository<Team>,
   ) {}
 
   async create(createUserInput: CreateUserInput): Promise<User> {
@@ -29,8 +32,9 @@ export class UsersService {
   }
   async findAllUserClubRole(): Promise<Array<UserClubRole>> {
     const data = await this.userClubRoleRepository.find({
-      relations: ['user', 'club'], // Specify the relations you want to load
+      relations: ['user', 'club', 'team'], // Specify the relations you want to load
     });
+
     return data;
   }
 

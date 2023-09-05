@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { UserClubRole } from 'src/modules/users/entitys/UserClubRole.entity';
-import { ClubJoinRequest } from './clubJoinRequest';
 import { Team } from 'src/modules/teams/entitys/team.entity';
+import { ClubJoinRequest } from './clubJoinRequest.entity';
 
 @Entity()
 export class Club {

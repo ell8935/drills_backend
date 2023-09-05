@@ -2,8 +2,11 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
   OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { UserClubRole } from 'src/modules/users/entitys/UserClubRole.entity';
 import { Club } from 'src/modules/club/entitys/club.entity';
@@ -16,23 +19,29 @@ export class Team {
   @Column()
   teamName: string;
 
-  @Column()
+  @Column({ nullable: true })
   league: string;
 
-  @Column()
+  @Column({ nullable: true })
   logo: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column()
-  status: boolean;
+  @Column({ default: 'active', nullable: true })
+  status: 'active' | 'disabled';
 
-  @Column()
+  @Column({ default: 'male', nullable: true })
   gender: 'male' | 'female';
 
+  @CreateDateColumn()
+  createdAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
+
   @ManyToOne(() => Club, (club) => club.teams)
-  club: Club;
+  @JoinColumn({ name: 'clubId' }) // Assuming clubId is the foreign key in Team referencing Club
+  club: string;
 
   @OneToMany(() => UserClubRole, (userClubRole) => userClubRole.team)
   teamRoles: UserClubRole[];

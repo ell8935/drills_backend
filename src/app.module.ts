@@ -11,8 +11,9 @@ import { ClubModule } from './modules/club/club.module';
 import { EmailService } from './modules/email/services/email.service';
 import { Club } from './modules/club/entitys/club.entity';
 import { UserClubRole } from './modules/users/entitys/UserClubRole.entity';
-import { ClubJoinRequest } from './modules/club/entitys/clubJoinRequest';
 import { Team } from './modules/teams/entitys/team.entity';
+import { TeamModule } from './modules/teams/teams.module';
+import { ClubJoinRequest } from './modules/club/entitys/clubJoinRequest.entity';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { Team } from './modules/teams/entitys/team.entity';
     AuthModule,
     EmailModule,
     ClubModule,
+    TeamModule,
   ],
   controllers: [AppController],
   providers: [AppService, EmailService],

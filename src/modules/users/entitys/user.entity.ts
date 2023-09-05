@@ -7,8 +7,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { UserClubRole } from './UserClubRole.entity';
-import { ClubJoinRequest } from 'src/modules/club/entitys/clubJoinRequest';
 import { StatusOptions } from '../types/userTypes';
+import { ClubJoinRequest } from 'src/modules/club/entitys/clubJoinRequest.entity';
 
 @Entity()
 export class User {

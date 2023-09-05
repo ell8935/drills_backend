@@ -5,10 +5,6 @@ import { UsersService } from '../services/users.service'; // Make sure this impo
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // @Get()
-  // findAll() {
-  //   return this.usersService.findAll();
-  // }
   @Get('findAll')
   findAllUserClubRole() {
     return this.usersService.findAllUserClubRole();
