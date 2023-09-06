@@ -32,25 +32,10 @@ export class TeamService {
     const newTeam = new Team();
     newTeam.club = club.clubId;
     newTeam.teamName = teamName;
-    newTeam.status = 'active'; // Set any other default values if needed
+    newTeam.status = 'active';
     const team = this.teamRepository.create(newTeam);
 
     return await this.teamRepository.save(team);
-  }
-  async findAllTeamsByClubId(clubId: string) {
-    // Find the club by its ID
-    const club = await this.clubRepository.findOne({ where: { clubId } });
-
-    if (!club) {
-      throw new Error(`Club with ID ${clubId} not found.`);
-    }
-
-    // Find all teams linked to the club
-    const teams = await this.teamRepository.find({
-      relations: ['club'],
-    });
-
-    return teams;
   }
 
   async assignUserToTeam(

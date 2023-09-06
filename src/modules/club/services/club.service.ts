@@ -24,6 +24,7 @@ export class ClubService {
     const club = this.clubRepository.create(form);
     return await this.clubRepository.save(club);
   }
+
   async requestToJoinClub(form: RequestToJoinClubProps) {
     const { userId, clubId } = form;
     const user = await this.userRepository.findOne({ where: { userId } });
@@ -40,8 +41,11 @@ export class ClubService {
   }
 
   async findOneClub(options: FindOneOptions<Club> = {}) {
-    return this.clubRepository.findOne(options);
+    options.relations = ['teams'];
+
+    return await this.clubRepository.findOne(options);
   }
+
   async findOneUserClubRole(options: FindOneOptions<UserClubRole> = {}) {
     return this.userClubRoleRepository.findOne(options);
   }

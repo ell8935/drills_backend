@@ -1,4 +1,4 @@
-import { Controller, Post, Param, Body, Get } from '@nestjs/common';
+import { Controller, Post, Param, Body } from '@nestjs/common';
 import { TeamService } from '../services/teams.service';
 import { AssignUserToTeamDto } from '../dtos/AssignUserToTeamDto.input';
 import { CreateTeamDto } from '../dtos/createTeamDto.input';
@@ -11,11 +11,6 @@ export class TeamController {
   async createTeam(@Body() createTeamDto: CreateTeamDto) {
     const { teamName, clubId } = createTeamDto;
     return this.teamService.createTeam(teamName, clubId);
-  }
-
-  @Get('allByClubId/:id')
-  async getTeams(@Param('id') id: string) {
-    return this.teamService.findAllTeamsByClubId(id);
   }
 
   @Post(':teamId/assign/:userId')
