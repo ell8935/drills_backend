@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { UserClubRole } from 'src/modules/users/entitys/UserClubRole.entity';
+import { UserClubRole } from 'src/modules/club/entitys/UserClubRole.entity';
 import { Team } from 'src/modules/teams/entitys/team.entity';
 import { ClubJoinRequest } from './clubJoinRequest.entity';
 

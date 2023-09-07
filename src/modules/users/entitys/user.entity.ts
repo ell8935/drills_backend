@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { UserClubRole } from './UserClubRole.entity';
+import { UserClubRole } from '../../club/entitys/UserClubRole.entity';
 import { StatusOptions } from '../types/userTypes';
 import { ClubJoinRequest } from 'src/modules/club/entitys/clubJoinRequest.entity';
 

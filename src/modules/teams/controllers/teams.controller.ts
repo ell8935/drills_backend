@@ -23,11 +23,11 @@ export class TeamController {
     return this.teamService.assignUserToTeam(userId, teamId, roleName);
   }
 
-  //   @Delete(':teamId/remove/:userId')
-  //   async removeUserFromTeam(
-  //     @Param('teamId') teamId: string,
-  //     @Param('userId') userId: string,
-  //   ) {
-  //     return this.teamService.removeUserFromTeam(userId, teamId);
-  //   }
+  // @Delete(':teamId/remove/:userId')
+  // async removeUserFromTeam(
+  //   @Param('teamId') teamId: string,
+  //   @Param('userId') userId: string,
+  // ) {
+  //   return this.teamService.removeUserFromTeam(userId, teamId);
+  // }
 }

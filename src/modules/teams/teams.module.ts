@@ -3,7 +3,7 @@ import { TeamController } from './controllers/teams.controller';
 import { TeamService } from './services/teams.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Team } from './entitys/team.entity';
-import { UserClubRole } from '../users/entitys/UserClubRole.entity';
+import { UserClubRole } from '../club/entitys/UserClubRole.entity';
 import { User } from '../users/entitys/user.entity';
 import { ClubService } from '../club/services/club.service';
 import { Club } from '../club/entitys/club.entity';

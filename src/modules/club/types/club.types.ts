@@ -1,4 +1,4 @@
-import { UserClubRole } from 'src/modules/users/entitys/UserClubRole.entity';
+import { UserClubRole } from 'src/modules/club/entitys/UserClubRole.entity';
 
 export interface CreateClubProps {
   clubName: string;

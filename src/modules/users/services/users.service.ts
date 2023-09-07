@@ -4,7 +4,7 @@ import { FindOneOptions, Repository } from 'typeorm';
 import { User } from '../entitys/user.entity';
 import { CreateUserInput } from '../dtos/create-user.input';
 import { UpdateUserInput } from '../dtos/update-user.input';
-import { UserClubRole } from '../entitys/UserClubRole.entity';
+import { UserClubRole } from '../../club/entitys/UserClubRole.entity';
 import { Club } from 'src/modules/club/entitys/club.entity';
 import { RolesNames } from '../types/userTypes';
 import { Team } from 'src/modules/teams/entitys/team.entity';

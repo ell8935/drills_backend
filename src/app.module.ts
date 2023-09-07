@@ -10,7 +10,7 @@ import { EmailModule } from './modules/email/email.module';
 import { ClubModule } from './modules/club/club.module';
 import { EmailService } from './modules/email/services/email.service';
 import { Club } from './modules/club/entitys/club.entity';
-import { UserClubRole } from './modules/users/entitys/UserClubRole.entity';
+import { UserClubRole } from './modules/club/entitys/UserClubRole.entity';
 import { Team } from './modules/teams/entitys/team.entity';
 import { TeamModule } from './modules/teams/teams.module';
 import { ClubJoinRequest } from './modules/club/entitys/clubJoinRequest.entity';

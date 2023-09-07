@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Team } from '../entitys/team.entity';
-import { UserClubRole } from 'src/modules/users/entitys/UserClubRole.entity';
+import { UserClubRole } from 'src/modules/club/entitys/UserClubRole.entity';
 import { Repository } from 'typeorm';
 import { RolesNames } from 'src/modules/users/types/userTypes';
 import { User } from 'src/modules/users/entitys/user.entity';

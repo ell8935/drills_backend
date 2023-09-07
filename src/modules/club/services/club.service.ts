@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from 'src/modules/users/entitys/user.entity';
-import { UserClubRole } from 'src/modules/users/entitys/UserClubRole.entity';
+import { UserClubRole } from 'src/modules/club/entitys/UserClubRole.entity';
 import { ClubJoinRequest } from '../entitys/clubJoinRequest.entity';
 
 @Injectable()

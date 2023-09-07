@@ -4,7 +4,6 @@ import { ClubService } from '../services/club.service';
 import { Club } from '../entitys/club.entity';
 import { UsersService } from 'src/modules/users/services/users.service';
 import { RolesNames } from 'src/modules/users/types/userTypes';
-import { UserClubRole } from 'src/modules/users/entitys/UserClubRole.entity';
 
 @Controller('club')
 export class ClubController {
@@ -39,7 +38,7 @@ export class ClubController {
   }
 
   @Post('removeEntity')
-  removeUserClubRole(@Body() body: { id: string }): Promise<UserClubRole> {
+  removeUserClubRole(@Body() body: { id: string }) {
     const { id } = body;
 
     console.log(id);
