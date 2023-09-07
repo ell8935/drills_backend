@@ -30,13 +30,6 @@ export class UsersService {
   async findAll(): Promise<Array<User>> {
     return await this.userRepository.find();
   }
-  async findAllUserClubRole(): Promise<Array<UserClubRole>> {
-    const data = await this.userClubRoleRepository.find({
-      relations: ['user', 'club', 'team'], // Specify the relations you want to load
-    });
-
-    return data;
-  }
 
   async findOne(options: FindOneOptions<User> = {}) {
     return this.userRepository.findOne(options);

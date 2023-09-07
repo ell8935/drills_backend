@@ -40,10 +40,20 @@ export class ClubService {
     return await this.clubJoinRequestRepository.save(joinRequest);
   }
 
-  async findOneClub(options: FindOneOptions<Club> = {}) {
-    options.relations = ['teams'];
+  async findAllUserClubRole({ clubId }): Promise<Array<UserClubRole>> {
+    const data = await this.userClubRoleRepository.find({
+      where: { club: { clubId } },
+      relations: ['user', 'club'], // Specify the relations you want to load
+    });
 
-    return await this.clubRepository.findOne(options);
+    return data;
+  }
+
+  async findOneClub(options: FindOneOptions<Club> = {}) {
+    options.relations = ['teams', 'joinRequests', 'joinRequests.user'];
+    const club = await this.clubRepository.findOne(options);
+
+    return club;
   }
 
   async findOneUserClubRole(options: FindOneOptions<UserClubRole> = {}) {

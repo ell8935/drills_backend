@@ -12,6 +12,11 @@ export class ClubController {
     private readonly usersService: UsersService,
   ) {}
 
+  @Get('findAll/:clubId')
+  findAllUserClubRole(@Param('clubId') clubId: string) {
+    return this.clubService.findAllUserClubRole({ clubId });
+  }
+
   @Post('update')
   updateClub(@Body() form: Club) {
     return this.clubService.update(form);
