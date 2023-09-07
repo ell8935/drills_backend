@@ -37,11 +37,9 @@ export class ClubController {
     return this.clubService.findOneClub({ where: { clubId: id } });
   }
 
-  @Post('removeEntity')
+  @Post('removeUserClubRole')
   removeUserClubRole(@Body() body: { id: string }) {
     const { id } = body;
-
-    console.log(id);
     return this.clubService.removeUserClubRole(id);
   }
 

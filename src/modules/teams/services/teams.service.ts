@@ -55,6 +55,10 @@ export class TeamService {
     return await this.userClubRoleRepository.save(userClubRole);
   }
 
+  async deleteTeam({ teamId }: { teamId: string }) {
+    return await this.teamRepository.delete({ teamId });
+  }
+
   //   async removeUserFromTeam(userId: string, teamId: string): Promise<void> {
   //     // Find and delete the user's role in the team
   //     await this.userClubRoleRepository.delete({ userId, team: { teamId } });

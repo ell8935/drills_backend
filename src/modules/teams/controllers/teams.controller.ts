@@ -3,7 +3,7 @@ import { TeamService } from '../services/teams.service';
 import { AssignUserToTeamDto } from '../dtos/AssignUserToTeamDto.input';
 import { CreateTeamDto } from '../dtos/createTeamDto.input';
 
-@Controller('teams')
+@Controller('team')
 export class TeamController {
   constructor(private readonly teamService: TeamService) {}
 
@@ -21,6 +21,12 @@ export class TeamController {
   ) {
     const { roleName } = assignUserDto;
     return this.teamService.assignUserToTeam(userId, teamId, roleName);
+  }
+
+  @Post('deleteTeam')
+  async deleteTeam(@Body() body: { teamId: string }) {
+    const { teamId } = body;
+    return this.teamService.deleteTeam({ teamId });
   }
 
   // @Delete(':teamId/remove/:userId')
